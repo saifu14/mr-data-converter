@@ -59,7 +59,8 @@ function DataConverter(nodeId) {
   this.upcaseHeaders          = false;
   this.includeWhiteSpace      = true;
   this.useTabsForIndent       = false;
-
+  this.decimal				  = "dot";
+  this.thousandseperator	  = "comma";
 }
 
 //---------------------------------------
@@ -153,7 +154,7 @@ DataConverter.prototype.convert = function() {
     }
 
     CSVParser.resetLog();
-    var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders);
+    var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders,this.decimal,this.thousandseperator);
 
     var dataGrid = parseOutput.dataGrid;
     var headerNames = parseOutput.headerNames;
