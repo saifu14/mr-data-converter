@@ -1,70 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0047)https://shancarter.github.io/mr-data-converter/ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML 
+lang="en"><HEAD><META content="IE=11.0000" http-equiv="X-UA-Compatible">
+   
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">   <TITLE>Mr. 
+Data Converter</TITLE>   
+<META name="author" content="Shan Carter">   <!-- Date: 2010-08-26 -->   <LINK 
+title="no title" href="js/converter.css" rel="stylesheet" 
+type="text/css" media="screen" charset="utf-8">   
+<SCRIPT src="js/jquery.js" type="text/javascript" charset="utf-8"></SCRIPT>
+   
+<SCRIPT src="js/CSVParser.js" type="text/javascript" charset="utf-8"></SCRIPT>
+   
+<SCRIPT src="js/DataGridRenderer.js" type="text/javascript" charset="utf-8"></SCRIPT>
+   
+<SCRIPT src="js/converter.js" type="text/javascript" charset="utf-8"></SCRIPT>
+   
+<SCRIPT src="js/Controller.js" type="text/javascript" charset="utf-8"></SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 11.00.9600.18349"></HEAD> 
+<BODY>
+<DIV id="base">
+<DIV id="header">
+<DIV id="description">
+<H1>Mr. Data Converter</H1>
+<P>I will convert your Excel data into one of several web-friendly formats, 
+including HTML, JSON and XML.</P>
+<P>Fork me on <A 
+href="http://github.com/shancarter/Mr-Data-Converter">github</A>.</P></DIV>
+<DIV id="settings">
+<H3>Settings</H3>
+<FORM id="settingsForm">
+<P>Delimiter:              
+<LABEL><INPUT name="delimiter" class="settingsElement" id="delimiterAuto" type="radio" checked="" value="auto"> Auto</LABEL>            
+<LABEL><INPUT name="delimiter" class="settingsElement" id="delimiterComma" type="radio" value="comma"> Comma</LABEL>              
+<LABEL><INPUT name="delimiter" class="settingsElement" id="delimiterTab" type="radio" value="tab"> Tab</LABEL>  
+</P>
 
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Mr. Data Converter</title>
-  <meta name="author" content="Shan Carter">
-  <!-- Date: 2010-08-26 -->
-  <link rel="stylesheet" href="css/converter.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<P>Decimal Sign:              
+<LABEL><INPUT name="decimal" class="settingsElement" id="decimalDot" type="radio" checked="" value="dot"> Dot</LABEL>              
+<LABEL><INPUT name="decimal" class="settingsElement" id="decimalComma" type="radio" value="comma"> Comma</LABEL>           
+</P>
 
-  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/CSVParser.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/DataGridRenderer.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/converter.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/Controller.js" type="text/javascript" charset="utf-8"></script>
+<P>Thousand Seperator:              
+<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorDot" type="radio"  value="dot"> Dot</LABEL>              
+<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorComma" type="radio" checked="" value="comma"> Comma</LABEL>   
+<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorSpace" type="radio" value="space"> Space</LABEL> 
+<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorNone" type="radio" value="none"> None</LABEL>           
+</P>
 
-</head>
-<body>
-  <div id='base'>
-    <div id='header'>
-      <div id="description">
-        <h1>Mr. Data Converter</h1>
-        <p>I will convert your Excel data into one of several web-friendly formats, including HTML, JSON and XML.</p>
-        <p>Fork me on <a href="http://github.com/shancarter/Mr-Data-Converter">github</a>.</p>
-      </div>
-      <div id='settings'>
-        <h3>Settings</h3>
-        <form id='settingsForm'>
-           <p>Delimiter:
+<P><LABEL><INPUT class="settingsElement" id="headersProvidedCB" type="checkbox" checked="" value=""> First row is the header</LABEL></P>
+<DIV class="settingsGroup">
 
-             <label><input class="settingsElement" type="radio" name="delimiter" id='delimiterAuto'   value="auto" checked/> Auto</label>
-             <label><input class="settingsElement" type="radio" name="delimiter" id='delimiterComma'  value="comma" /> Comma</label>
-             <label><input class="settingsElement" type="radio" name="delimiter" id='delimiterTab'    value="tab" /> Tab</label>
-            </p>
-          <p>Decimal Sign:
-
-             <label><input class="settingsElement" type="radio" name="decimal" id='decimalDot'   value="dot" checked/> Dot</label>
-             <label><input class="settingsElement" type="radio" name="decimal" id='decimalComma'  value="comma" /> Comma</label>
-            </p>
-          <p><label><input class="settingsElement" type="checkbox" name="" value="" id="headersProvidedCB" checked /> First row is the header</label></p>
-          <div class="settingsGroup">
-            <p>Transform: <label><input class="settingsElement" type="radio" name="headerModifications" value="downcase" id='headersDowncase' /> downcase</label>
-            <label><input class="settingsElement" type="radio" name="headerModifications" id='headersUpcase' value="upcase" /> upcase</label>
-            <label><input class="settingsElement" type="radio" name="headerModifications" id='headersNoTransform' value="none" checked /> none</label></p>
-          </div>
-
-          <p><label><input class="settingsElement" type="checkbox" name="some_name" value="" id="includeWhiteSpaceCB" checked /> Include white space in output</label></p>
-          <div class="settingsGroup">
-            <p>Indent with: <label><input class="settingsElement" type="radio" name="indentType" value="tabs" id='includeWhiteSpaceTabs'/> tabs</label> <label><input class="settingsElement" type="radio" name="indentType" value="spaces" id='includeWhiteSpaceSpaces' checked/> spaces</label></p>
-          </div>
-
-
-        </form>
-
-
-      </div>
-    </div>
-
-
-
-    <div id='converter' class=''>
-
-    </div>
-
-  </div>
-
-
-</body>
-</html>
+<P>Transform: <LABEL><INPUT name="headerModifications" class="settingsElement" 
+id="headersDowncase" type="radio" value="downcase"> downcase</LABEL>             
+<LABEL><INPUT name="headerModifications" class="settingsElement" id="headersUpcase" 
+type="radio" value="upcase"> upcase</LABEL>             <LABEL><INPUT name="headerModifications" 
+class="settingsElement" id="headersNoTransform" type="radio" checked="" value="none"> 
+none</LABEL></P></DIV>
+<P><LABEL><INPUT name="some_name" class="settingsElement" id="includeWhiteSpaceCB" 
+type="checkbox" checked="" value=""> Include white space in output</LABEL></P>
+<DIV class="settingsGroup">
+<P>Indent with: <LABEL><INPUT name="indentType" class="settingsElement" id="includeWhiteSpaceTabs" 
+type="radio" value="tabs"> tabs</LABEL> <LABEL><INPUT name="indentType" class="settingsElement" 
+id="includeWhiteSpaceSpaces" type="radio" checked="" value="spaces"> 
+spaces</LABEL></P></DIV></FORM></DIV></DIV>
+<DIV id="converter"></DIV></DIV></BODY></HTML>
