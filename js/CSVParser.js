@@ -15,11 +15,16 @@ var CSVParser = {
   // UTILS
   //---------------------------------------
 
-  isNumber: function(string) {
-    if( (string == null) || isNaN( new Number(string) ) ) {
-      return false;
-    }
-    return true;
+ 
+  isNumber: function(string) { 
+	'use strict';
+	string = string.replace(/\./g, '').replace(/,/g, '');	 
+
+	return !isNaN(parseFloat(string)) && isFinite(string);
+    //if( (string == null) || isNaN( new Number(string) ) ) {
+     // return false;
+    //}
+    //return true;
   },
 
 
@@ -28,7 +33,7 @@ var CSVParser = {
   //---------------------------------------
   //var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders);
 
-  parse: function (input, headersIncluded, delimiterType, downcaseHeaders, upcaseHeaders, decimalSign) {
+  parse: function (input, headersIncluded, delimiterType, downcaseHeaders, upcaseHeaders, decimalSign,thousandSeperator) {
 
     var dataArray = [];
 
@@ -130,10 +135,19 @@ var CSVParser = {
       for (var r=0; r < numRowsToTest; r++) {
         if (dataArray[r]) {
           //replace comma with dot if comma is decimal separator
-          if(decimalSign='comma' && isDecimal_re.test(dataArray[r][i])){
+          if((decimalSign==='comma') && isDecimal_re.test(dataArray[r][i])){
             dataArray[r][i] = dataArray[r][i].replace(",", ".");
+          }else{
+				if((thousandSeperator==='comma') && isDecimal_re.test(dataArray[r][i])){
+				dataArray[r][i] = dataArray[r][i].replace(/,/g, "");
           }
+		  }
+		  if((thousandSeperator==='dot') && isDecimal_re.test(dataArray[r][i])){
+            dataArray[r][i] = dataArray[r][i].replace(/./g, "");
+          }
+
           if (CSVParser.isNumber(dataArray[r][i])) {
+			  dataArray[r][i] = dataArray[r][i].replace(/,/g, "");
             numInts++
             if (String(dataArray[r][i]).indexOf(".") > 0) {
               numFloats++
