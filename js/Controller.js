@@ -68,7 +68,8 @@ $(document).ready(function(){
     
     d.delimiter = $('input[name=delimiter]:checked').val();
     d.decimal = $('input[name=decimal]:checked').val();
-    
+    d.thousandseperator = $('input[name=thousandseperator]:checked','#settingsForm').val();
+	 
     d.useUnderscores = true;
     
     d.convert();
