@@ -31,7 +31,7 @@ $(document).ready(function(){
     if (evt) {
       _gaq.push(['_trackEvent', 'Settings',evt.currentTarget.id ]);
     };
-
+	
     d.includeWhiteSpace = $('#includeWhiteSpaceCB').attr('checked');
     
     if (d.includeWhiteSpace) {
@@ -68,7 +68,15 @@ $(document).ready(function(){
     
     d.delimiter = $('input[name=delimiter]:checked').val();
     d.decimal = $('input[name=decimal]:checked').val();
-    d.thousandseperator = $('input[name=thousandseperator]:checked','#settingsForm').val();
+	d.thousandseperator = $('input[name=thousandseperator]:checked','#settingsForm').val();
+	if(d.decimal==='comma' && d.thousandseperator==='comma'){		
+		d.thousandseperator='dot';
+		$( "#thousandseperatorDot" ).prop( "checked", true );
+	}
+	if(d.decimal==='dot' && d.thousandseperator==='dot'){
+		d.thousandseperator='comma';
+		$( "#thousandseperatorComma" ).prop( "checked", true );
+	}
 	 
     d.useUnderscores = true;
     
@@ -78,4 +86,5 @@ $(document).ready(function(){
   updateSettings();
   
 })
+
 
