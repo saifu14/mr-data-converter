@@ -68,14 +68,23 @@ $(document).ready(function(){
     
     d.delimiter = $('input[name=delimiter]:checked').val();
     d.decimal = $('input[name=decimal]:checked').val();
-	d.thousandseperator = $('input[name=thousandseperator]:checked','#settingsForm').val();
+	d.thousandseperator = $('#thousandseperator').val();
+	d.checkindiancurrency = $('#checkindiancurrency').attr('checked'); 
+	d.converttostdnum =  $('#converttostdnumber').attr('checked'); 
+	if(d.converttostdnum){
+		$('#thousandseperator').prop('disabled', false);
+		$('#checkindiancurrency').prop('disabled', false); 
+	}else{
+		$('#thousandseperator').prop('disabled', true);
+		$('#checkindiancurrency').prop('disabled', true); 		
+	}
 	if(d.decimal==='comma' && d.thousandseperator==='comma'){		
 		d.thousandseperator='dot';
-		$( "#thousandseperatorDot" ).prop( "checked", true );
+		$("#thousandseperator").val(d.thousandseperator);		
 	}
 	if(d.decimal==='dot' && d.thousandseperator==='dot'){
 		d.thousandseperator='comma';
-		$( "#thousandseperatorComma" ).prop( "checked", true );
+		$("#thousandseperator").val(d.thousandseperator);		
 	}
 	 
     d.useUnderscores = true;
