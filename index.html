@@ -6,7 +6,7 @@ lang="en"><HEAD><META content="IE=11.0000" http-equiv="X-UA-Compatible">
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">   <TITLE>Mr. 
 Data Converter</TITLE>   
 <META name="author" content="Shan Carter">   <!-- Date: 2010-08-26 -->   <LINK 
-title="no title" href="css/converter.css" rel="stylesheet" 
+title="no title" href="js/converter.css" rel="stylesheet" 
 type="text/css" media="screen" charset="utf-8">   
 <SCRIPT src="js/jquery.js" type="text/javascript" charset="utf-8"></SCRIPT>
    
@@ -37,18 +37,26 @@ href="http://github.com/shancarter/Mr-Data-Converter">github</A>.</P></DIV>
 <LABEL><INPUT name="delimiter" class="settingsElement" id="delimiterTab" type="radio" value="tab"> Tab</LABEL>  
 </P>
 
+<br>
+Number system:
 <P>Decimal Sign:              
 <LABEL><INPUT name="decimal" class="settingsElement" id="decimalDot" type="radio" checked="" value="dot"> Dot</LABEL>              
 <LABEL><INPUT name="decimal" class="settingsElement" id="decimalComma" type="radio" value="comma"> Comma</LABEL>           
 </P>
+<P><LABEL><INPUT class="settingsElement" id="converttostdnumber" type="checkbox" checked="" value=""> Convert formatted number to standard number.</LABEL></P>
+<P>Thousand Separator:   
+<select  class="settingsElement"  name="thousandSeperator" id="thousandseperator">
+   <option value="dot">Dot</option>
+   <option value="comma">Comma </option>
+   <option value="space">Space</option>
+   <option value="apostrophe">Apostrophe</option>
+   <option value="none">None</option>
+</select>    
+<P><LABEL><INPUT class="settingsElement" id="checkindiancurrency" type="checkbox" checked="" value=""> Check for Indian Currency (eg: 1,37,489.38)</LABEL></P>
 
-<P>Thousand Seperator:              
-<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorDot" type="radio"  value="dot"> Dot</LABEL>              
-<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorComma" type="radio" checked="" value="comma"> Comma</LABEL>   
-<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorSpace" type="radio" value="space"> Space</LABEL> 
-<LABEL><INPUT name="thousandseperator" class="settingsElement" id="thousandseperatorNone" type="radio" value="none"> None</LABEL>           
 </P>
-
+ 
+<br>
 <P><LABEL><INPUT class="settingsElement" id="headersProvidedCB" type="checkbox" checked="" value=""> First row is the header</LABEL></P>
 <DIV class="settingsGroup">
 
@@ -58,6 +66,9 @@ id="headersDowncase" type="radio" value="downcase"> downcase</LABEL>
 type="radio" value="upcase"> upcase</LABEL>             <LABEL><INPUT name="headerModifications" 
 class="settingsElement" id="headersNoTransform" type="radio" checked="" value="none"> 
 none</LABEL></P></DIV>
+
+<br>
+
 <P><LABEL><INPUT name="some_name" class="settingsElement" id="includeWhiteSpaceCB" 
 type="checkbox" checked="" value=""> Include white space in output</LABEL></P>
 <DIV class="settingsGroup">
@@ -66,3 +77,4 @@ type="radio" value="tabs"> tabs</LABEL> <LABEL><INPUT name="indentType" class="s
 id="includeWhiteSpaceSpaces" type="radio" checked="" value="spaces"> 
 spaces</LABEL></P></DIV></FORM></DIV></DIV>
 <DIV id="converter"></DIV></DIV></BODY></HTML>
+
