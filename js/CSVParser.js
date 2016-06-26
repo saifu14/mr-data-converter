@@ -9,14 +9,47 @@
 
 var isDecimal_re     = /^\s*(\+|-)?((\d+([,\.]\d+)?)|([,\.]\d+))\s*$/;
 
+var nothousandsep = /(^\d+([,.]\d+)?$)/;
+var commathousandsep =  /((^\d{1,3}(,\d{3})+(\.\d+)?)$)/;
+var dotthousandsep =  /((^\d{1,3}(\.\d{3})+(,\d+)?)$)/;
+var spacethousandsep =  /((^\d{1,3}(\s\d{3})+([,.]\d+)?)$)/;
+var appostthousandsep =  /((^\d{1,3}('\d{3})+(\.\d+)?)$)/;
+var indianthousandsep = /((^\d{1,2}((,\d{2})|(,\d{3}\.))+(\d+)?)$)/;
+var thousandseperator = '';
+var decimalsign = '.';
+var checkforIndiancurrency = false;
+var convertFormattedToStdNum=true;
+
 var CSVParser = {
 
   //---------------------------------------
   // UTILS
   //---------------------------------------
 
+  //This function returns the type of number format also
+ isNumber: function(string) { 
+	
+	var numtype=0;	
+	numtype=(nothousandsep.test(string))?1:0;
+	if(thousandseperator=='comma'){			
+		numtype=numtype || ((commathousandsep.test(string))?2:0);
+	}
+	if(thousandseperator=='dot'){		
+		numtype=numtype || ((dotthousandsep.test(string))?3:0);		
+	}
+	if(thousandseperator=='space'){		
+		numtype=numtype || ((spacethousandsep.test(string))?4:0);		
+	}
+	if(thousandseperator=='apostrophe'){		
+		numtype=numtype || ((appostthousandsep.test(string))?5:0);		
+	}
+	if(checkforIndiancurrency){
+		numtype=numtype || ((indianthousandsep.test(string))?6:0);
+	}
+	return numtype;
+ },
  
-  isNumber: function(string) { 
+  isNumberold: function(string) { 
 	'use strict';
 	string = string.replace(/\./g, '').replace(/,/g, '');	 
 
@@ -26,15 +59,37 @@ var CSVParser = {
     //}
     //return true;
   },
-
+  
+cleanupNumber: function(string) {
+	if(thousandseperator=='comma'){
+		string = string.replace(/,/g, '');		
+	}
+	if(thousandseperator=='dot'){
+		string = string.replace(/\./g, '');				
+	}
+	if(thousandseperator=='space'){
+		string = string.replace(/ /g, '');		
+	}
+	if(thousandseperator=='apostrophe'){
+		string = string.replace(/'/g, '');				
+	}
+	if(decimalsign=='comma'){
+		string = string.replace(/,/, '.');				
+	}	
+	
+	return string;
+},	
 
   //---------------------------------------
   // PARSE
   //---------------------------------------
   //var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders);
 
-  parse: function (input, headersIncluded, delimiterType, downcaseHeaders, upcaseHeaders, decimalSign,thousandSeperator) {
-
+  parse: function (input, headersIncluded, delimiterType, downcaseHeaders, upcaseHeaders, decimalSign, thousandSeperator, checkForIndianCurrency, convertformattedtostdnum) {
+	decimalsign = decimalSign;
+    thousandseperator =thousandSeperator;
+	checkforIndiancurrency=checkForIndianCurrency;
+	convertFormattedToStdNum=convertformattedtostdnum;
     var dataArray = [];
 
     var errors = [];
@@ -134,37 +189,30 @@ var CSVParser = {
       var numInts = 0;
       for (var r=0; r < numRowsToTest; r++) {
         if (dataArray[r]) {
-          //replace comma with dot if comma is decimal separator
-          if((decimalSign==='comma') && isDecimal_re.test(dataArray[r][i])){
-            dataArray[r][i] = dataArray[r][i].replace(",", ".");
-          }else{
-				if((thousandSeperator==='comma') && isDecimal_re.test(dataArray[r][i])){
-				dataArray[r][i] = dataArray[r][i].replace(/,/g, "");
-          }
-		  }
-		  if((thousandSeperator==='dot') && isDecimal_re.test(dataArray[r][i])){
-            dataArray[r][i] = dataArray[r][i].replace(/./g, "");
-          }
-
-          if (CSVParser.isNumber(dataArray[r][i])) {
-			  dataArray[r][i] = dataArray[r][i].replace(/,/g, "");
-            numInts++
-            if (String(dataArray[r][i]).indexOf(".") > 0) {
-              numFloats++
-            }
-          };
+		  var ntype=ntype=CSVParser.isNumber(dataArray[r][i]);
+          if (ntype>0) {
+				numInts++;
+				if(convertFormattedToStdNum){
+					dataArray[r][i]=CSVParser.cleanupNumber(dataArray[r][i]);					
+				}else{
+					if(ntype>1)numInts=0; //to make this row as string
+				}				
+				if (String(dataArray[r][i]).indexOf(".") > 0) {
+					numFloats++;
+				}
+			};
         };
 
       };
 
       if ((numInts / numRowsToTest) > threshold){
         if (numFloats > 0) {
-          headerTypes[i] = "float"
+          headerTypes[i] = "float";
         } else {
-          headerTypes[i] = "int"
+          headerTypes[i] = "int";
         }
       } else {
-        headerTypes[i] = "string"
+        headerTypes[i] = "string";
       }
     }
 
@@ -297,3 +345,4 @@ var CSVParser = {
 
 
 }
+
