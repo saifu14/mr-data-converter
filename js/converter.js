@@ -61,6 +61,8 @@ function DataConverter(nodeId) {
   this.useTabsForIndent       = false;
   this.decimal				  = "dot";
   this.thousandseperator	  = "comma";
+  this.checkindiancurrency	  = true;
+  this.converttostdnum	  	  = true;
 }
 
 //---------------------------------------
@@ -154,7 +156,7 @@ DataConverter.prototype.convert = function() {
     }
 
     CSVParser.resetLog();
-    var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders,this.decimal,this.thousandseperator);
+    var parseOutput = CSVParser.parse(this.inputText, this.headersProvided, this.delimiter, this.downcaseHeaders, this.upcaseHeaders,this.decimal,this.thousandseperator,this.checkindiancurrency,this.converttostdnum);
 
     var dataGrid = parseOutput.dataGrid;
     var headerNames = parseOutput.headerNames;
@@ -173,5 +175,6 @@ DataConverter.prototype.convert = function() {
 DataConverter.prototype.insertSampleData = function() {
   this.inputTextArea.val("NAME\tVALUE\tCOLOR\tDATE\nAlan\t12\tblue\tSep. 25, 2009\nShan\t13\t\"green\tblue\"\tSep. 27, 2009\nJohn\t45\torange\tSep. 29, 2009\nMinna\t27\tteal\tSep. 30, 2009");
 }
+
 
 
