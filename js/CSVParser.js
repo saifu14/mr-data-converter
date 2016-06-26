@@ -48,17 +48,7 @@ var CSVParser = {
 	}
 	return numtype;
  },
- 
-  isNumberold: function(string) { 
-	'use strict';
-	string = string.replace(/\./g, '').replace(/,/g, '');	 
 
-	return !isNaN(parseFloat(string)) && isFinite(string);
-    //if( (string == null) || isNaN( new Number(string) ) ) {
-     // return false;
-    //}
-    //return true;
-  },
   
 cleanupNumber: function(string) {
 	if(thousandseperator=='comma'){
@@ -139,6 +129,7 @@ cleanupNumber: function(string) {
         dataArray[i][j] = dataArray[i][j].replace("\t", "\\t");
         dataArray[i][j] = dataArray[i][j].replace("\n", "\\n");
         dataArray[i][j] = dataArray[i][j].replace("\r", "\\r");
+        dataArray[i][j] = dataArray[i][j].replace(/[\""]/g,'\\"'); //escape quotes within strings
       };
     };
 
@@ -275,7 +266,8 @@ cleanupNumber: function(string) {
           "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
 
           // Standard fields.
-          "([^\"\\" + strDelimiter + "\\r\\n]*))"
+          //"([^\"\\" + strDelimiter + "\\r\\n]*))"
+          "([^\\" + strDelimiter + "\\r\\n]*))"  //fix for premature cut of strings which contain double quotes
         ),
         "gi"
         );
